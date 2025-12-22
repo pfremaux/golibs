@@ -4,6 +4,9 @@ Various libraries associate to a main.go in order to try them.
 	* '0/<branch name>': reusable context
 	* 'wip/':
  
+ ## Code coverage
+ `go test ./... -coverprofile=coverage.out`
+Then use an extension of your IDE to check the coverage.
 
 # Libs
 ## File handler
