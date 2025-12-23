@@ -1,6 +1,6 @@
 package csv
 
-import "github.com/pfremaux/golibs/cache"
+import "github.com/pfremaux/golibs/cache/pkg/cache"
 
 type CsvClient struct {
 	c cache.Cache

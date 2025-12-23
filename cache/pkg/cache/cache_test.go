@@ -3,7 +3,7 @@ package cache_test
 import (
 	"testing"
 
-	"github.com/cache/pkg/cache"
+	"github.com/pfremaux/golibs/cache/pkg/cache"
 )
 
 func TestCache(t *testing.T) {
