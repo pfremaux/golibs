@@ -24,6 +24,14 @@ func (c *SimpleCache[V]) Delete(key string) error {
 	return nil
 }
 
+func (c *SimpleCache[V]) Values() ([]V, error) {
+	values := make([]V, 0, len(c.data))
+	for _, v := range c.data {
+		values = append(values, v)
+	}
+	return values, nil
+}
+
 func NewSimpleCache[V any]() Cache[string, V] {
 	return &SimpleCache[V]{
 		data: make(map[string]V),
