@@ -1,4 +1,4 @@
-package test
+package cache_test
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 )
 
 func TestCache(t *testing.T) {
-	cache := cache.NewSimpleCache()
+	cache := cache.NewSimpleCache[string]()
 	if cache == nil {
 		t.Errorf("NewCache() should return a non-nil Cache instance")
 	}

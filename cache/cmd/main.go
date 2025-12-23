@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	c := cache.NewSimpleCache()
+	c := cache.NewSimpleCache[string]()
 	c.Set("myKey", "myValue")
 	fmt.Println(c.Get("myKey")) // Output: myValue
 }
