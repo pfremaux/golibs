@@ -51,8 +51,8 @@ func Connect(uri string, login string, password string) (CsvClient, error) {
 		c:    c,
 		path: uri,
 	}
-	cc.refresh()
-	return cc, nil
+	err := cc.refresh()
+	return cc, err
 }
 
 func (cc *CsvClient) refresh() error {

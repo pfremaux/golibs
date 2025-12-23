@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	c, err := csv.Connect("data.csv", "", "")
+	c, err := csv.Connect("test/db.csv", "", "")
 	if err != nil {
 		panic(err)
 	}
@@ -16,6 +16,6 @@ func main() {
 		panic(err)
 	}
 	for _, row := range all {
-		fmt.Printf("%v", row)
+		fmt.Printf("%v\n", row)
 	}
 }
