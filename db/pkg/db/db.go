@@ -1,13 +1,13 @@
 package db
 
 type DbClient[K any, V any] interface {
-	Get(key K) (V, error)
-	Set(key K, value V) error
-	Add(value V) error
-	Remove(key K) error
-	ListAll() ([]V, error)
-	ListPaged(page int, pageSize int) ([]V, error)
-	ListPagedWithFilter(page int, pageSize int, filter func(V) bool) ([]V, error)
+	Get(table string, key K) (V, error)
+	Set(table string, key K, value V) error
+	Add(table string, value V) error
+	Remove(table string, key K) error
+	ListAll(table string) ([]V, error)
+	ListPaged(table string, page int, pageSize int) ([]V, error)
+	ListPagedWithFilter(table string, page int, pageSize int, filter func(V) bool) ([]V, error)
 	Sync() error
 }
 
