@@ -8,7 +8,6 @@ type DbClient[K any, V any] interface {
 	ListAll(table string) ([]V, error)
 	ListPaged(table string, page int, pageSize int) ([]V, error)
 	ListPagedWithFilter(table string, page int, pageSize int, filter func(V) bool) ([]V, error)
-	Sync() error
 }
 
 type Db[K any, V any] interface {

@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	c, err := csv.Connect("test/db.csv", "", "")
+	c, err := csv.Load("test/db.csv")
 	if err != nil {
 		panic(err)
 	}
-	all, err := c.ListAll("")
+	all, err := c.ListAll()
 	if err != nil {
 		panic(err)
 	}
