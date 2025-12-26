@@ -53,3 +53,20 @@ func listWithDepthLimit(dirPath string, maxDepth int16, currentDepth int16) ([]s
 	}
 	return files, nil
 }
+
+func MkDirIfNotExists(path string) error {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		err := os.MkdirAll(path, os.ModePerm)
+		if err != nil {
+			return fmt.Errorf("failed to create directory: %w", err)
+		}
+	}
+	return nil
+}
+
+func DeleteIfExists(path string) {
+	// Implementation of deleteIfExists function
+	if _, err := os.Stat(path); !os.IsNotExist(err) {
+		os.Remove(path)
+	}
+}

@@ -21,8 +21,28 @@ func Load(uri string) (CsvClient, error) {
 		c:    c,
 		path: uri,
 	}
-	err := cc.refresh()
+	err := cc.Sync()
 	return cc, err
+}
+
+func (c *CsvClient) Get(table string, key string) ([]string, error) {
+	return c.c.Get(key)
+}
+
+func (c *CsvClient) Set(table string, key string, value []string) error {
+	return fmt.Errorf("Unsupported operation Set with CSV client. It's a readonly lib.")
+}
+
+func (c *CsvClient) Remove(table string, key string) error {
+	return c.c.Delete(key)
+}
+
+func (c *CsvClient) ListAll() ([][]string, error) {
+	return c.c.Values()
+}
+
+func (c *CsvClient) Sync() error {
+	return c.refresh()
 }
 
 func (cc *CsvClient) refresh() error {
@@ -48,24 +68,4 @@ func (cc *CsvClient) refresh() error {
 	}
 	cc.c = c
 	return nil
-}
-
-func (c *CsvClient) Get(table string, key string) ([]string, error) {
-	return c.c.Get(key)
-}
-
-func (c *CsvClient) Set(table string, key string, value []string) error {
-	return fmt.Errorf("Unsupported operation Set with CSV client. It's a readonly lib.")
-}
-
-func (c *CsvClient) Remove(table string, key string) error {
-	return c.c.Delete(key)
-}
-
-func (c *CsvClient) ListAll() ([][]string, error) {
-	return c.c.Values()
-}
-
-func (c *CsvClient) Sync() error {
-	return c.refresh()
 }

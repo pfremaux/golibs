@@ -16,7 +16,7 @@ func Connect(uri string, login string, password string) (SqliteClient, error) {
 	if err != nil {
 		return SqliteClient{}, err
 	}
-	err = createSchemaIfNeeded(dbConnection)
+	err = createSchemaIfNeeded(dbConnection, &File{}, &Tag{})
 	if err != nil {
 		return SqliteClient{}, err
 	}
@@ -49,6 +49,13 @@ func (c *SqliteClient) Get(row Row) error {
 	return c.dbConnection.First(row).Error
 }
 
+func (c *SqliteClient) Paginate(out any, page int, pageSize int) error {
+	offset := (page - 1) * pageSize
+	return c.dbConnection.Limit(pageSize).Offset(offset).Find(out).Error
+}
+
+// TODO PFR func (c *SqliteClient) PaginateWithFilter
+
 /*
 tags := []Tag{}
 	dbConnection.Raw("SELECT * from tags").Scan(&tags)
@@ -70,16 +77,20 @@ type Tag struct {
 
 func (t Tag) Id() uint { return t.ID }
 
-func createSchemaIfNeeded(dbConnection *gorm.DB) error {
+// In Go 1.18+, any is literally a type alias for interface{}—they're identical under the hood
+func createSchemaIfNeeded(dbConnection *gorm.DB, tables ...any) error {
 	needsMigrate := false
-	if !dbConnection.Migrator().HasTable(&File{}) || !dbConnection.Migrator().HasTable(&Tag{}) {
-		needsMigrate = true
+	for _, table := range tables {
+		if !dbConnection.Migrator().HasTable(table) {
+			needsMigrate = true
+			break
+		}
 	}
 	if !needsMigrate {
 		return nil
 	}
 	// Migre les schémas pour tes modèles (ajoute d'autres structs si besoin)
-	err := dbConnection.AutoMigrate(&File{}, &Tag{})
+	err := dbConnection.AutoMigrate(tables...)
 	if err != nil {
 		return err
 	}
