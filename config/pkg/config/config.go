@@ -1,6 +1,10 @@
 package config
 
-import "os"
+import (
+	"os"
+
+	"github.com/pfremaux/golibs/files/pkg/files"
+)
 
 func GetUserHomeDir() string {
 	if home, err := os.UserHomeDir(); err == nil {

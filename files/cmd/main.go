@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/files/pkg/files"
+	"github.com/pfremaux/golibs/files/pkg/files"
 )
 
 func main() {
