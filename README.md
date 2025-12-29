@@ -9,3 +9,8 @@ Various libraries associate to a main.go in order to try them.
 In a go module, run:
 `go test ./... -coverprofile=coverage.out`
 Use `Command + SHIFT + P` then `Go Coverage: Display results` on the file you want. (requires plugin)
+
+# Troubleshooting
+If you pushed a change on a local library and cannot have the latest version in your app do:
+`GOPROXY=direct go get <library URL>@latest`
+e.g.`GOPROXY=direct go get github.com/pfremaux/golibs/files@latest`
