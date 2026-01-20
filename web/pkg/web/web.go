@@ -90,6 +90,7 @@ func (wsc *WebServerConfig) Listen() {
 }
 
 func NewWebServer(host string, port int) *WebServerConfig {
+	// todo pfr validate inputs
 	return &WebServerConfig{
 		Host: host,
 		PublicExposure: ServerExposureConfig{
@@ -113,7 +114,6 @@ func NewWebServer(host string, port int) *WebServerConfig {
 }
 
 func corsHandler(h http.HandlerFunc, config *WebServerConfig) http.HandlerFunc {
-	// todo pfr validate inputs
 	return func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("cors 1")
 		// Set CORS headers
@@ -136,7 +136,6 @@ func corsHandler(h http.HandlerFunc, config *WebServerConfig) http.HandlerFunc {
 }
 
 func authHandler(h http.HandlerFunc, config *WebServerConfig) http.HandlerFunc {
-	// todo pfr validate inputs
 	return func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("auth 1")
 		// Handle preflight (OPTIONS) requests
@@ -164,7 +163,7 @@ func authHandler(h http.HandlerFunc, config *WebServerConfig) http.HandlerFunc {
 	}
 }
 
-func authenticate(token string, config *WebServerConfig) error { // TODO PFR differentiate pub priv
+func authenticate(token string, config *WebServerConfig) error {
 	if token == "" && config.PublicExposure.AuthTokenOverride == "" {
 		fmt.Println("auth skipped")
 		return nil
